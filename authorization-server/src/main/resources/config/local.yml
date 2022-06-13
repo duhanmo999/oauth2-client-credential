@@ -1,0 +1,9 @@
+app:
+  datasource:
+    mysql:
+      url: jdbc:mysql://localhost:3306/authorization_server
+      username: root
+      password: 1234
+    redis:
+      host: localhost
+      port: 6379
