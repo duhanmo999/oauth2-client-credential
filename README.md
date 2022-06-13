@@ -175,3 +175,6 @@ curl --location --request POST 'localhost:8080/message' \
 ## 필요한 세팅
 1. mysql
 2. redis
+
+### reference
+> https://github.com/spring-projects/spring-authorization-server
