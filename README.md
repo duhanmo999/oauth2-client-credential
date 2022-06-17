@@ -17,7 +17,7 @@ access-token 의 만료시간이 남았어도 **한 번의 Request 당 한 번�
    1. client, authorization 관련 schema 를 생성
    2. 해당 정보들을 관리하는 구현체를 InMemory 가 아닌 JDBC 를 이용
    3. 설정된 정보, 발급한 토큰을 잘 저장하긴 하지만 요청마다 DB 의 삽입, 삭제를 하기엔 **효율이 떨어짐**
-2. Redis 를 이용한다. ()
+2. Redis 를 이용한다.
    1. 발급한 access-token 값을 Redis 에 저장
    2. Redis 에 저장할 때 lifetime 을 access-token의 만료시간과 일치시킴
    3. 하지만 Spring Authorization-server 자체에서 이용하고 있는 로직 사이에 Redis 에 관한 로직을 삽입하기가 힘듬
