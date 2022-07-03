@@ -31,6 +31,7 @@ import org.springframework.security.oauth2.server.authorization.client.Registere
 import org.springframework.security.oauth2.server.authorization.config.ProviderSettings;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -51,6 +52,7 @@ public class OAuth2AuthorizationServerSecurityConfiguration {
 
     private final AuthProperties authProperties;
     private final AuthenticationSuccessHandler customAccessTokenResponseHandler;
+    private final AuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Bean
     @Order(1)
@@ -59,7 +61,10 @@ public class OAuth2AuthorizationServerSecurityConfiguration {
                 new OAuth2AuthorizationServerConfigurer<>();
         authorizationServerConfigurer
                 .tokenEndpoint(tokenEndpoint -> tokenEndpoint
-                        .accessTokenResponseHandler(customAccessTokenResponseHandler));
+                        .accessTokenResponseHandler(customAccessTokenResponseHandler)
+                        .errorResponseHandler(customAuthenticationFailureHandler))
+                .clientAuthentication(clientAuthentication -> clientAuthentication
+                        .errorResponseHandler(customAuthenticationFailureHandler));
 
         RequestMatcher endpointsMatcher = authorizationServerConfigurer.getEndpointsMatcher();
         http
